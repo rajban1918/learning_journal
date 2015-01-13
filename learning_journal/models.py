@@ -1,13 +1,13 @@
+import datetime
+
 from sqlalchemy import (
     Column,
     Index,
     Integer,
     Text,
     Unicode,
-    func
+    DateTime
     )
-
-import datetime
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -33,7 +33,14 @@ Index('my_index', MyModel.name, unique=True, mysql_length=255)
 class Entry(Base):
     __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
-    title = Column(Unicode(255), unique=True, nullable=false)
-    body = Column(Unicode, )
-    created = Column(DateTime, default=func.now())
-    edited = Column(DateTime, onupdate=datetime.datetime.now)
+    title = Column(Unicode(255), unique=True, nullable=False)
+    body = Column(Unicode)
+    created = Column(DateTime, default=datetime.datetime.utcnow)
+    edited = Column(DateTime, default=datetime.datetime.utcnow) #utcnow is faster, w/out DST or timezones
+
+    # @classmethod
+    # def all(cls):
+
+
+    # @classmethod
+    # def by_id(cls, id):
