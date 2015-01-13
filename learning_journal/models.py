@@ -6,7 +6,8 @@ from sqlalchemy import (
     Integer,
     Text,
     Unicode,
-    DateTime
+    DateTime,
+    desc
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -34,13 +35,14 @@ class Entry(Base):
     __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
     title = Column(Unicode(255), unique=True, nullable=False)
-    body = Column(Unicode)
+    body = Column(Unicode, default=u'')
     created = Column(DateTime, default=datetime.datetime.utcnow)
     edited = Column(DateTime, default=datetime.datetime.utcnow) #utcnow is faster, w/out DST or timezones
 
-    # @classmethod
-    # def all(cls):
+    @classmethod
+    def all(cls):
+        return DBSession.query(cls).order_by(desc(cls.created)).all()
 
-
-    # @classmethod
-    # def by_id(cls, id):
+    @classmethod
+    def by_id(cls, id):
+        return DBSession.query(cls).get(id)

@@ -6,8 +6,10 @@ from sqlalchemy.exc import DBAPIError
 from .models import (
     DBSession,
     MyModel,
+    Entry
     )
 
+#I imagine we need to do something below as well?
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
 def my_view(request):
