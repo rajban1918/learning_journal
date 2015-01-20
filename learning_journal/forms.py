@@ -2,6 +2,7 @@ from wtforms import (
     Form,
     TextField,
     TextAreaField,
+    HiddenField,
     validators,
 )
 
@@ -19,3 +20,7 @@ class EntryCreateForm(Form):
         [validators.Length(min=1)],
         filters=[strip_filter]
     )
+
+class EntryEditForm(EntryCreateForm): #I got really confused here
+    id =  HiddenField()
+
