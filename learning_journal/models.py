@@ -1,14 +1,16 @@
 import datetime
 
-from sqlalchemy import (
-    Column,
-    Index,
-    Integer,
-    Text,
-    Unicode,
-    DateTime,
-    desc
-    )
+# from sqlalchemy import (
+#     Column,
+#     Index,
+#     Integer,
+#     Text,
+#     Unicode,
+#     DateTime,
+#     desc
+#     )
+
+import sqlalchemy as sa
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -25,23 +27,23 @@ Base = declarative_base()
 
 class MyModel(Base):
     __tablename__ = 'models'
-    id = Column(Integer, primary_key=True)
-    name = Column(Text)
-    value = Column(Integer)
+    id = sa.Column(sa.Integer, primary_key=True)
+    name = sa.Column(sa.Text)
+    value = sa.Column(sa.Integer)
 
-Index('my_index', MyModel.name, unique=True, mysql_length=255)
+sa.Index('my_index', MyModel.name, unique=True, mysql_length=255)
 
 class Entry(Base):
     __tablename__ = 'entries'
-    id = Column(Integer, primary_key=True)
-    title = Column(Unicode(255), unique=True, nullable=False)
-    body = Column(Unicode, default=u'')
-    created = Column(DateTime, default=datetime.datetime.utcnow)
-    edited = Column(DateTime, default=datetime.datetime.utcnow) #utcnow is faster, w/out DST or timezones
+    id = sa.Column(sa.Integer, primary_key=True)
+    title = sa.Column(sa.Unicode(255), unique=True, nullable=False)
+    body = sa.Column(sa.UnicodeText, default=u'')
+    created = sa.Column(sa.DateTime, default=datetime.datetime.utcnow)
+    edited = sa.Column(sa.DateTime, default=datetime.datetime.utcnow) #utcnow is faster, w/out DST or timezones
 
     @classmethod
     def all(cls):
-        return DBSession.query(cls).order_by(desc(cls.created)).all()
+        return DBSession.query(cls).order_by(sa.desc(cls.created)).all()
 
     @classmethod
     def by_id(cls, id):

@@ -15,7 +15,7 @@ from ..models import (
     DBSession,
     MyModel,
     Base,
-    Entry
+    Entry,
     )
 
 
@@ -39,7 +39,5 @@ def main(argv=sys.argv):
     with transaction.manager:
         model = MyModel(name='one', value=1)
         DBSession.add(model)
-    #Can put something here to create an instance for Entry when initialized?
-    #with transaction.manager:
-        #new_model = Entry(title='hey', body='there')
-        #DBSSession.add(new_model)
+        new_model = Entry(title='hey', body='there')
+        DBSession.add(new_model)
