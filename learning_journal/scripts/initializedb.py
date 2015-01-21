@@ -19,6 +19,7 @@ from ..models import (
     User,
     )
 
+from cryptacular.bcrypt import BCRYPTPasswordManager as Manager
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -38,7 +39,11 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
-        new_model = Entry(title='hey', body='there')
-        DBSession.add(new_model)
+        # model = MyModel(name='one', value=1)
+        # DBSession.add(model)
+        # new_model = Entry(title='hey', body='there')
+        # DBSession.add(new_model)
+        manager = Manager()
+        password = manager.encode(u'admin')
+        admin = User(name=u'admin', password=password)
+        DBSession.add(admin)

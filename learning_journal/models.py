@@ -11,6 +11,7 @@ import datetime
 #     )
 
 import sqlalchemy as sa
+from cryptacular.bcrypt import BCRYPTPasswordManager as Manager
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -50,11 +51,15 @@ class Entry(Base):
         return DBSession.query(cls).get(id)
 
 class User(Base):
-    __tablename__ =  'user_info'
-    id = sa.Column(sa.Integer, primary_key = True)
-    username  = sa.Column(sa.Unicode(255), unique = True, nullable = False)
+    __tablename__ =  'user'
+    id = sa.Column(sa.Integer, primary_key = True, autoincrement = True)
+    name  = sa.Column(sa.Unicode(255), unique = True, nullable = False)
     password =  sa.Column(sa.Unicode(15), nullable = False)
 
     @classmethod
-    def by_name(cls, username)
-        return DBSession.query(User).filter(User.username == username)
+    def by_name(cls, name):
+        return DBSession.query(User).filter(User.name == name).first()
+
+    def verify_password(self, password):
+        manager = Manager()
+        return manager.check(self.password, password)
