@@ -14,7 +14,7 @@ from .models import (
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-     if 'DATABASE_URL' in os.environ:
+    if 'DATABASE_URL' in os.environ:
         settings['sqlalchemy.url'] = os.environ['DATABASE_URL']
     engine = engine_from_config(settings, 'sqlalchemy.')
     engine = engine_from_config(settings, 'sqlalchemy.')
