@@ -10,7 +10,8 @@ from sqlalchemy.exc import DBAPIError
 from .models import (
     DBSession,
     MyModel,
-    Entry
+    Entry,
+    User,
     )
 
 #I imagine we need to do something below as well?
@@ -48,7 +49,7 @@ def create(request):
 
 @view_config(route_name='action', match_param='action=edit', renderer='templates/edit.jinja2')
 def update(request):
-    id = int(request.params.get('id', -1)) #will not work with int
+    id = int(request.params.get('id', -1)) 
     entry = Entry.by_id(id)
     if not entry:
         return HTTPNotFound

@@ -16,6 +16,7 @@ from ..models import (
     MyModel,
     Base,
     Entry,
+    User,
     )
 
 
