@@ -47,7 +47,6 @@ def main(argv=sys.argv):
         # new_model = Entry(title='hey', body='there')
         # DBSession.add(new_model)
         manager = Manager()
-        manager = Manager
         password = os.environ.get('ADMIN_PASSWORD', u'admin')
         password = manager.encode(password)
         admin = User(name=u'admin', password=password)
