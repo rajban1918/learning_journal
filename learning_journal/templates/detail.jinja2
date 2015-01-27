@@ -8,5 +8,7 @@
   <p>Created <strong title="{{ entry.created }}">{{entry.created}}</strong></p>
 </article>
 <p><a href="{{ request.route_url('home') }}">Go Back</a></p>
+{% if logged_in %}
 <p><a href="{{ request.route_url('action', action='edit', _query={'id': entry.id}) }}">Edit Journal Entry</a></p>
+{% endif %}
 {% endblock %}
