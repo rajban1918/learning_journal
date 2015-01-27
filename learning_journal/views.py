@@ -7,6 +7,8 @@ from .forms import EntryCreateForm, EntryEditForm, LoginForm
 from pyramid.security import forget, remember, authenticated_userid
 
 from sqlalchemy.exc import DBAPIError
+from jinja2 import Markup
+import markdown
 
 from .models import (
     DBSession,
@@ -83,6 +85,10 @@ def sign_in_out(request):
         headers = forget(request)
     return HTTPFound(location=request.route_url('home'), headers=headers)
     
+def render_markdown(content):
+    output = Markup(markdown.markdown(content))
+    return output
+
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

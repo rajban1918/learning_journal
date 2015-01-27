@@ -19,6 +19,7 @@ requires = [
     'waitress',
     'wtforms',
     'cryptacular',
+    'markdown',
     ]
 
 setup(name='learning_journal',
