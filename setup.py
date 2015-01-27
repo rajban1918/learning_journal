@@ -20,6 +20,7 @@ requires = [
     'wtforms',
     'cryptacular',
     'markdown',
+    'pygments',
     ]
 
 setup(name='learning_journal',

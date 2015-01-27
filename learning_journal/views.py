@@ -86,7 +86,7 @@ def sign_in_out(request):
     return HTTPFound(location=request.route_url('home'), headers=headers)
     
 def render_markdown(content):
-    output = Markup(markdown.markdown(content))
+    output = Markup(markdown.markdown(content, extensions=['codehilite(pygments_style=colorful)', 'fenced_code']))
     return output
 
 
